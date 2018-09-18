@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 mat-dialog-title> {{ data.title }}</h1>
+    <mat-dialog-content>
+        <div class="container">
+            <form *ngIf="groups" [formGroup]="frm" (ngSubmit)='save(frm)'>
+                <mat-form-field>
+                    <mat-select placeholder="Select Group" formControlName='groupID'>
+                        <mat-option *ngFor="let group of groups" [value]="group._id">
+                            {{group.groupname}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="frm.controls.groupID.invalid">{{getGroupIDErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <br />
+
+                <mat-form-field>
+                    <input matInput placeholder="Name" formControlName="name" class="person-input">
+                    <mat-error *ngIf="frm.controls.name.invalid">{{getNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+
+                <br />
+
+                <mat-form-field>
+                    <input matInput placeholder="Email" formControlName="email" class="person-input">
+                    <mat-error *ngIf="frm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+
+                <br />
+
+                <mat-form-field>
+                    <input matInput placeholder="Phone" formControlName="phone" class="person-input">
+                    <mat-error *ngIf="frm.controls.phone.invalid">{{getPhoneErrorMessage()}}</mat-error>
+                </mat-form-field>
+
+                <br />
+
+                <mat-radio-group formControlName='status' ng-model="status">
+                    <label>Status:</label>
+                    <mat-radio-button value="true">Active</mat-radio-button>
+                    <mat-radio-button value="false">Inactive</mat-radio-button>
+                    <mat-error *ngIf="frm.controls.status.invalid">{{getStatusErrorMessage()}}</mat-error>
+                </mat-radio-group>
+
+                <mat-form-field style="visibility: hidden; height: 0vh !important">
+                    <input matInput type="text" formControlName='id'>
+                </mat-form-field>
+
+                <div class="button-row">
+                    <button mat-button [mat-dialog-close]>Cancel</button>
+                    <button mat-raised-button color="primary" type="submit" class="btnSave" [disabled]="!frm.valid">
+                        <mat-icon aria-label="icon-button">save</mat-icon>
+                        <span>Submit</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </mat-dialog-content>
+</div>

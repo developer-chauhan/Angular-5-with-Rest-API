@@ -1,0 +1,45 @@
+<div class="signin-content animated fadeIn">
+    <mat-card>
+        <mat-card-content>
+            <img src="../../../assets/img/1.png" width="200px">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <mat-input-container class="full-width-input">
+                    <input matInput placeholder="Name" formControlName="name" required>
+                    <mat-error *ngIf="isFieldInvalid('name')">
+                        Please inform your name
+                    </mat-error>
+                </mat-input-container>
+
+                <mat-input-container class="full-width-input">
+                    <input matInput placeholder="User Name" formControlName="userName" required>
+                    <mat-error *ngIf="isFieldInvalid('userName')">
+                        Please inform your user name
+                    </mat-error>
+                </mat-input-container>
+
+                <mat-input-container class="full-width-input">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="form.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-input-container>
+
+                <mat-input-container class="full-width-input separate">
+                    <input matInput #password type="password" placeholder="Password" formControlName="password"
+                        required>
+                    <mat-error *ngIf="isFieldInvalid('password')">
+                        Please inform your password
+                    </mat-error>
+                </mat-input-container>
+                <mat-card-content>
+                    <!--@angular-material-extensions/password-strength's main component-->
+                    <mat-password-strength #passwordComponent1 [enableDigitRule]="false" [password]="password.value">
+                    </mat-password-strength>
+                    <!--Password's strength info-->
+                    <mat-password-strength-info [passwordComponent]="passwordComponent1">
+                    </mat-password-strength-info>
+                </mat-card-content>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Register</button>
+            </form>
+            <a routerLink="/login">Login</a>
+        </mat-card-content>
+    </mat-card>
+</div>
